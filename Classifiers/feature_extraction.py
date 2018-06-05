@@ -103,11 +103,9 @@ def extract_features(document, word_features):
             '[mode]:False,
              [egypt]:True, '
     """
-    print(3)
     document_words = set(document)
     features = {}
     for word in word_features:
         features['contains(%s)' % str(word)] = (word in document_words)
-    print(4)
     return features
 # end extract_features

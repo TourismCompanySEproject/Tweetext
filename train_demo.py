@@ -2,6 +2,8 @@ from Tweetext import Tweetext
 from time import time
 import nltk
 
+from Classifiers.nb_algorithm import NaiveBayesAlgorithm
+
 # start = time()
 # demo = Tweetext()
 #
@@ -18,5 +20,8 @@ import nltk
 
 
 
-demo = Tweetext()
-demo.train()
+
+# demo = Tweetext()
+# demo.train()
+
+nb_demo = NaiveBayesAlgorithm(training_required = True, path = "Classifiers/Data/raw" )

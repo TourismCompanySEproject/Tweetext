@@ -14,6 +14,14 @@ class Classifier(ABC):
     #     pass
 
     @abstractmethod
+    def process_data(self, path = None, url = None):
+        pass
+
+    @abstractmethod
+    def feature_extraction(self, documents, word_features, train_set_no, test_set_no):
+        pass
+
+    @abstractmethod
     def classify(self):
         pass
 
@@ -22,28 +30,24 @@ class Classifier(ABC):
         pass
 
     @abstractmethod
-    def get_dumped_file(self):
+    def get_dump_file(self):
         pass
 
     @abstractmethod
     def dump_files(self):
         pass
+
+    @abstractmethod
+    def predict(self):
+        pass
+
     @abstractmethod
     def __str__(self):
         pass
 
     @abstractmethod
     def need_training(self):
-        # Trained Data Path
-        os.chdir("Data/trained" + self.__str__())
-
-        pickle_files = glob.glob("*.pickle")
-        if not pickle_files:
-            return True
-
-        else:
-            return False
-    #end need_taining
+        pass
 
 
     def factory(self, algorithm = 'NaiveBayesAlgorithm'):
