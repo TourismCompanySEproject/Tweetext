@@ -25,3 +25,5 @@ from Classifiers.nb_algorithm import NaiveBayesAlgorithm
 # demo.train()
 
 nb_demo = NaiveBayesAlgorithm(training_required = True, path = "Classifiers/Data/raw" )
+print(nb_demo.get_accuracy())
+# nb_demo = NaiveBayesAlgorithm()

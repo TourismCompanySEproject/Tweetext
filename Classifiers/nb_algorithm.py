@@ -1,5 +1,5 @@
 import nltk
-import re, pickle, os, glob
+import re, pickle, os, glob, sys
 
 # Abstract Class
 from abc import abstractmethod
@@ -14,7 +14,12 @@ class NaiveBayesAlgorithm(classifier_abc.Classifier):
     def __init__(self, training_required = False,
                  path =None, url=None,
                  train_set_no=60, test_set_no=10,):
+
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.trained_data_path = BASE_DIR + "/Classifiers/Data/trained"
+        self.classifierDumpFile = "NB.pickle"
         print(1)
+
         if training_required or self.need_training() :
           self.documents, self.word_features = self. process_data(path, url)
           print(2)
@@ -23,16 +28,14 @@ class NaiveBayesAlgorithm(classifier_abc.Classifier):
               self.documents[:1000], self.word_features[:8000], 60, 10)
           print(3)
 
-          # self.classifierDumpFile = "Data/Trained/"+self.__str__()+"/"+self.__str__()+"_trained.pickle"
-          self.classifierDumpFile = "NB.pickle"
           print(4)
 
           classifier = self.classify(self.train_set, self.classifierDumpFile)
           print(5)
 
           print(self.get_accuracy())
+        #end __init__
 
-        pass
 
     def process_data(self, path=None, url=None):
         """
@@ -61,6 +64,7 @@ class NaiveBayesAlgorithm(classifier_abc.Classifier):
         return self.processsed
         # end process_data
 
+
     def feature_extraction(self, documents, word_features, train_set_no, test_set_no):
         """
         :param documents:
@@ -76,6 +80,7 @@ class NaiveBayesAlgorithm(classifier_abc.Classifier):
         return self.train_set, self.test_set
     #end feature_extraction
 
+
     def classify(self, training_set, classifierDumpFile):
         """
 
@@ -88,7 +93,6 @@ class NaiveBayesAlgorithm(classifier_abc.Classifier):
         self.dump_files(self.classifier, classifierDumpFile)
         return self.classifier
     # end classify
-
 
     def get_accuracy(self):
         """
@@ -107,6 +111,7 @@ class NaiveBayesAlgorithm(classifier_abc.Classifier):
         :param classifierDumpFile: File name
         :return: classifier : the saved data
         """
+        os.chdir(self.trained_data_path)
         try:
             f1 = open(classifierDumpFile, 'rb')
             if (f1):
@@ -125,6 +130,7 @@ class NaiveBayesAlgorithm(classifier_abc.Classifier):
         :param classifierDumpFile: File name
         :return: None
         """
+        os.chdir(self.trained_data_path)
         try:
             outfile = open(classifierDumpFile, 'wb')
             pickle.dump(classifier, outfile)
@@ -133,7 +139,13 @@ class NaiveBayesAlgorithm(classifier_abc.Classifier):
             "Can't create Dump file."
     # end dump_files
 
-    def predict(self):
+    def predict(self, input):
+        self.classifier = pickle.load(open('data/trained/MNB.pickle', 'rb'))
+        word_features = pickle.load(open('data/trained/word_features.pickle', 'rb'))
+
+        token = nltk.word_tokenize(input.lower())
+        return self.classifier.classify(document_features(token))
+
         pass
 
     def __str__(self):
@@ -148,11 +160,13 @@ class NaiveBayesAlgorithm(classifier_abc.Classifier):
                         False if trained data available
         """
         # Trained Data Path
-        os.chdir("Data/trained"+self.__str__())
+        os.chdir(self.trained_data_path)
 
-        pickle_files = glob.glob("*.pickle")
+        pickle_files = glob.glob(self.classifierDumpFile)
         if not pickle_files:
             return True
 
         else: return False
     # end need_taining
+
+
