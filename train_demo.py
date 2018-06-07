@@ -23,7 +23,9 @@ from Classifiers.nb_algorithm import NaiveBayesAlgorithm
 
 # demo = Tweetext()
 # demo.train()
-
-nb_demo = NaiveBayesAlgorithm(training_required = True, path = "Classifiers/Data/raw" )
-print(nb_demo.get_accuracy())
-# nb_demo = NaiveBayesAlgorithm()
+# print(demo.get_accuracy())
+#
+# nb_demo = NaiveBayesAlgorithm(training_required = True, raw_data_path = "Classifiers/Data/raw" )
+# # nb_demo = NaiveBayesAlgorithm()
+# print(nb_demo.predict("""Well, that is taxation law of India (other side).In India 52,911
+#                           Profitable Companies Pay 0% Tax in India!"""))
