@@ -26,9 +26,9 @@ def process_word(word):
     word = re.sub(r'#([^\s]+)', r'\1', word)
     # trim
     word = word.strip('\'"')
-    word = [i.lower() for i in list(set(nltk.word_tokenize(word)))
+    processed_word = [i.lower() for i in list(set(nltk.word_tokenize(word)))
             if i not in stop_words]
-    return word
+    return processed_word
 
 
 def clean_data(txt_files=None, csv_files=None,json_files=None):
@@ -106,6 +106,6 @@ def extract_features(document, word_features):
     document_words = set(document)
     features = {}
     for word in word_features:
-        features['contains(%s)' % str(word)] = (word in document_words)
-    return features
+        features_set['contains(%s)' % str(word)] = (word in document_words)
+    return features_set
 # end extract_features

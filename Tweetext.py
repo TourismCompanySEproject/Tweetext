@@ -24,7 +24,7 @@ class Tweetext:
 
 
     def train(self, raw_data_path =Raw_Data_Dir.__getattr__(),
-              raw_data_url=None, train_set_no=6000, test_set_no=100,):
+              train_set_no=6000, test_set_no=100,):
         """
 
         :param raw_data_path:
@@ -35,7 +35,7 @@ class Tweetext:
         """
 
         self.__current_algorithm.train(
-            raw_data_path, raw_data_url,
+            raw_data_path,
             train_set_no, test_set_no,)
     #end train
 
