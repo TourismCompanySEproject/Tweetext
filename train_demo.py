@@ -4,11 +4,8 @@ import nltk
 
 from Classifiers.nb_algorithm import NaiveBayesAlgorithm
 
-# start = time()
-# demo = Tweetext()
-#
-# doc, word_feat = demo.process_data("Classifiers/Data/raw",)
-# print('Data Processed', time() - start)
+
+
 # print(len(doc), len(word_feat))
 #
 # all_words = nltk.FreqDist(word_feat)
@@ -20,12 +17,13 @@ from Classifiers.nb_algorithm import NaiveBayesAlgorithm
 
 
 
-
+start = time()
 demo = Tweetext()
-demo.train()
-print(demo.get_accuracy())
-#
+demo.train(train_set_no=8000)
+print(demo.classify("Well, that is taxation law of India (other side).In India 52,911 Profitable Companies Pay 0% Tax in India!"))
+print('Elapsed time:', time() - start)
+
 # nb_demo = NaiveBayesAlgorithm(training_required = True, raw_data_path = "Classifiers/Data/raw" )
 # # nb_demo = NaiveBayesAlgorithm()
-# print(nb_demo.predict("""Well, that is taxation law of India (other side).In India 52,911
+# print(nb_demo.classify("""Well, that is taxation law of India (other side).In India 52,911
 #                           Profitable Companies Pay 0% Tax in India!"""))

@@ -7,7 +7,7 @@ class NaiveBayesAlgorithm(classifier_abc.Classifier):
 
     def __init__(self, training_required = False,
                  raw_data_path =None, raw_data_url=None,
-                 train_set_no=60, test_set_no=10,):
+                 train_set_no=6000, test_set_no=1000,):
 
         # Specific Dump file name for algorithm's Trained data
         self.classifierDumpFile = "NB.pickle"

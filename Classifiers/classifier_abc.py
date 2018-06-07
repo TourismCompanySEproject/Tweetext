@@ -1,11 +1,8 @@
 import re, pickle, os, glob
-
 # Abstract Class
 from abc import ABC, abstractmethod
-
 #Base Direction
 from .Directions import Base_Dir, Trained_Data_Dir
-
 # Feature Extraction Module
 from .feature_extraction import *
 
@@ -16,7 +13,7 @@ class Classifier(ABC):
         Applied to empashize the Factory Desgin Pattern
     """
     def train(self, raw_data_path=None, raw_data_url=None,
-                 train_set_no=60, test_set_no=10, ):
+                 train_set_no=6000, test_set_no=100, ):
         """
             Responsible for gathering the raw dat to train,
             training the classifier,and saving the trained data in pickles,
@@ -36,8 +33,8 @@ class Classifier(ABC):
         # Features Extraction, and spliting them into Training and Testing sets.
         self.train_set, self.test_set = \
             self.feature_extraction(
-            self.features[:1000], self.word_features[:8000], 60, 10
-            )
+                self.features[:1000], self.word_features[:8000], train_set_no, test_set_no
+                                    )
 
         self.dump_files(self.test_set, "test_set.pickle")
 

@@ -19,6 +19,4 @@ class Raw_Data_Dir:
     __RAW_DATA_DIR = Base_Dir.__getattr__() + "/Classifiers/Data/raw"
 
     def __getattr__():
-        return Raw_Data_Dir.__Raw_DATA_DIR
-
-Trained_Data_Dir.__getattr__()
+        return Raw_Data_Dir.__RAW_DATA_DIR
