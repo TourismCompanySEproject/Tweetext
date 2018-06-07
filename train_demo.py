@@ -21,9 +21,9 @@ from Classifiers.nb_algorithm import NaiveBayesAlgorithm
 
 
 
-# demo = Tweetext()
-# demo.train()
-# print(demo.get_accuracy())
+demo = Tweetext()
+demo.train()
+print(demo.get_accuracy())
 #
 # nb_demo = NaiveBayesAlgorithm(training_required = True, raw_data_path = "Classifiers/Data/raw" )
 # # nb_demo = NaiveBayesAlgorithm()

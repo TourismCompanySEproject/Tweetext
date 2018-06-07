@@ -12,6 +12,7 @@ class Tweetext:
     # __raw_data_path = ''
 
     def __init__(self, auto = False):
+        self.__current_algorithm = object()
 
         # if auto:
         #     train_set_no = 600
@@ -21,14 +22,13 @@ class Tweetext:
         pass
 
     def train(self, algorithm = 'NaiveBayesAlgorithm'):
-
-        __current_algorithm = Classifier.factory("NaiveBayesAlgorithm")
-        print(__current_algorithm)
+        self.__current_algorithm = Classifier.factory("NaiveBayesAlgorithm")
+        # print(self.__current_algorithm)
 
         # pass
 
     def get_accuracy(self):
-        return __current_algorithm.get_accuracy()
+        return self.__current_algorithm.get_accuracy()
 
 
     def predict(self, statment, algorithm = 'NB'):

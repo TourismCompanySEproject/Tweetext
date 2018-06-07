@@ -150,7 +150,7 @@ class Classifier(ABC):
             os.chdir(Trained_Data_Dir.__getattr__())
             test_set = self.get_dump_file("test_set.pickle")
             # Get Acccuracy value.
-            self.accuracy = (nltk.classify.accuracy(self.clf, self.test_set ))*100
+            self.accuracy = (nltk.classify.accuracy(self.clf, test_set ))*100
 
             return self.accuracy
         else:
