@@ -6,7 +6,7 @@ from . import classifier_abc
 class NaiveBayesAlgorithm(classifier_abc.Classifier):
 
     def __init__(self, training_required = False,
-                 raw_data_path =None, raw_data_url=None,
+                 raw_data_path =None,
                  train_set_no=6000, test_set_no=1000,):
 
         # Specific Dump file name for algorithm's Trained data
@@ -14,9 +14,9 @@ class NaiveBayesAlgorithm(classifier_abc.Classifier):
 
         # Check if algorithm Trained data is not present,
         # or user requests training.
-        if training_required or self.need_training() :
-            self.train(raw_data_path, raw_data_url,
-                       train_set_no, test_set_no, )
+        # if training_required or self.need_training() :
+        #     self.train(raw_data_path,
+        #                train_set_no, test_set_no, )
 
         #end __init__
 

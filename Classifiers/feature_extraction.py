@@ -49,8 +49,12 @@ def clean_data(txt_files=None, csv_files=None,json_files=None):
         #
         all_words = []
         for file in txt_files:
+            try:
+                file_text = open(file, encoding='utf8').read()
+            except UnicodeDecodeError:
+                print(file_text[0:20])
+                continue
 
-            file_text = open(file, encoding='utf8').read()
             for word in file_text.split('\n'):
                 procesed_word = process_word(word)
                 all_words+= procesed_word
@@ -104,7 +108,7 @@ def extract_features(document, word_features):
              [egypt]:True, '
     """
     document_words = set(document)
-    features = {}
+    features_set = {}
     for word in word_features:
         features_set['contains(%s)' % str(word)] = (word in document_words)
     return features_set

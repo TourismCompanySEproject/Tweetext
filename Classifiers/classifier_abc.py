@@ -12,20 +12,19 @@ class Classifier(ABC):
         Abstract base class for all Algoritm classes,
         Applied to empashize the Factory Desgin Pattern
     """
-    def train(self, raw_data_path=None, raw_data_url=None,
+    def train(self, raw_data_path=None,
                  train_set_no=6000, test_set_no=100, ):
         """
             Responsible for gathering the raw dat to train,
             training the classifier,and saving the trained data in pickles,
         :param raw_data_path:
-        :param raw_data_url:
         :param train_set_no:
         :param test_set_no:
         :return: Null
         """
 
         # Processing raw data: Cleaning, Removing Stopwords, Lowering case.
-        self.features, self.word_features = self.process_data(raw_data_path, raw_data_url)
+        self.features, self.word_features = self.process_data(raw_data_path)
 
         # Saving Feature list.
         self.dump_files(self.word_features, "word_features_file.pickle")
@@ -63,11 +62,9 @@ class Classifier(ABC):
         return self.classifier.classify(extract_features(input, word_features))
     #end predict
 
-    def process_data(self, raw_data_path=None, raw_data_url=None):
+    def process_data(self, raw_data_path=None):
         """
         :param raw_data_path: directory of the raw data to be processed
-        :param raw_data_url: an online directory of the raw data to be processed,
-                @edit still not working.
         :return: processed: the features and words after being processed,
         removing the stopwords, symbols, emoticons, and any unnecessary word.
         """
@@ -76,8 +73,7 @@ class Classifier(ABC):
 
         # Not present:
         if raw_data_path is None:
-            if raw_data_url is None:
-                return "No directory or url specified"
+                return "No directory or specified"
 
         # Ofline path provided:
         elif raw_data_path:
@@ -89,10 +85,6 @@ class Classifier(ABC):
             raw_csv_files = glob.glob("*.csv")
             raw_json_files = glob.glob("*.json")
 
-        #Online url provided:
-        elif raw_data_url:
-
-            pass
 
         # Process Data, Cleaning, Removing Stopwords, Lowering case.
 
@@ -213,17 +205,27 @@ class Classifier(ABC):
     # end need_taining
 
 
-    def factory(self, algorithm = 'NaiveBayes'):
+    def factory(algorithm):
         """
             Creation of Classifier.
         :param algorithm: Name The Algorithm to be used for classifier.
         :return: The created Classifier object.
         """
         algorithm = algorithm.lower()
+        print(algorithm)
 
-        if algorithm == "naivebayesalgorithm" or "naivebayes" or "nb":
+
+        if algorithm in ["naivebayesalgorithm", "naivebayes", "nb"]:
             from .nb_algorithm import NaiveBayesAlgorithm
             return NaiveBayesAlgorithm()
+        if algorithm == "svm":
+            from .svm_algorithm import SVMAlgorithm
+            return SVMAlgorithm()
+        if algorithm in ["multinomial", "multinomial_nb", "mnb"]:
+            from .multinomial_nb_algorithm import MultinomailNBAlgorithm
+            return MultinomailNBAlgorithm()
+
+
         #
         # other algorithms to be added here
         #

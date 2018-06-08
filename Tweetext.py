@@ -12,14 +12,14 @@ class Tweetext:
     """
         Tweetext: acts as the interface between the users and the system functionalities
     """
-    def __init__(self, algorithm = 'NaiveBayesAlgorithm'):
+    def __init__(self, algorithm = "NaiveBayes"):
         """
             Constructor, takes Algorithm type as parameter, and create it using the factory DP.
         :param algorithm: The Classifier algorithm to be created.
         """
-
-        self.__current_algorithm = Classifier.factory(algorithm)
-
+        print(algorithm)
+        self.__current_algorithm = Classifier.factory(algorithm= algorithm)
+        print(self.__current_algorithm)
     #end __init__
 
 
@@ -28,7 +28,6 @@ class Tweetext:
         """
 
         :param raw_data_path:
-        :param raw_data_url:
         :param train_set_no:
         :param test_set_no:
         :return:
