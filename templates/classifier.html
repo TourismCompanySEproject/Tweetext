@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Classifier</title>
+</head>
+<body>
+    {% if label %}
+    <h1>{{label}}</h1>
+    {% endif %}
+
+ <form method="POST" novalidate="">
+
+     <p>
+         <label for="input">Input:</label>
+         <input style="background-color: #fff3cd" type="text" name="input" maxlength="30" id="input">
+     </p>
+     <br>
+     <button value="submit" type="submit"  style="color: whitesmoke; background-color:green; width:40%; margin: auto;" class="btn btn-primary btn-block">Classify</button>
+ </form>
+
+</body>
+</html>

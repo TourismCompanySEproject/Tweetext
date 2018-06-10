@@ -212,8 +212,6 @@ class Classifier(ABC):
         :return: The created Classifier object.
         """
         algorithm = algorithm.lower()
-        print(algorithm)
-
 
         if algorithm in ["naivebayesalgorithm", "naivebayes", "nb"]:
             from .nb_algorithm import NaiveBayesAlgorithm

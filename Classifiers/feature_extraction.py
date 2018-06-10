@@ -14,16 +14,18 @@ def process_word(word):
 
 
     word = word.lower()
-    word = re.sub(r'[^\w\s]', '', word)
-    word = re.sub(" \d+", " ", word)
+
     # Convert www.* or https?://* to URL
     word = re.sub('((www\.[^\s]+)|(https?://[^\s]+))', 'URL', word)
     # Convert @username to AT_USER
     word = re.sub('@[^\s]+', 'AT_USER', word)
-    # Remove additional white spaces
-    word = re.sub('[\s]+', ' ', word)
     # Remove #
     word = re.sub(r'#([^\s]+)', r'\1', word)
+    # Remove additional white spaces
+    word = re.sub('[\s]+', ' ', word)
+
+    word = re.sub(r'[^\w\s]', '', word)
+    word = re.sub(" \d+", " ", word)
     # trim
     word = word.strip('\'"')
     processed_word = [i.lower() for i in list(set(nltk.word_tokenize(word)))
