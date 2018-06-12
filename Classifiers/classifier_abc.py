@@ -1,4 +1,4 @@
-import re, pickle, os, glob
+import re, pickle, os, glob, sys
 # Abstract Class
 from abc import ABC, abstractmethod
 #Base Direction
@@ -22,6 +22,12 @@ class Classifier(ABC):
         :param test_set_no:
         :return: Null
         """
+        if not isinstance(raw_data_path, str):
+            print("Invalid path format was entered.")
+            sys.exit(1)
+        if (train_set_no or test_set_no) <= 2:
+            print("Invalid number of features for training and testing set.")
+            sys.exit(1)
 
         # Processing raw data: Cleaning, Removing Stopwords, Lowering case.
         self.features, self.word_features = self.process_data(raw_data_path)
@@ -50,6 +56,10 @@ class Classifier(ABC):
         :param input: Text to be classified
         :return: Category (label)
         """
+
+        if not isinstance(input, str):
+            return ("Invalid input.")
+
         # Head To Trained Data Directory
         os.chdir(Trained_Data_Dir.__getattr__())
         # Load the Saved Trained Data from pickle
@@ -73,19 +83,26 @@ class Classifier(ABC):
 
         # Not present:
         if raw_data_path is None:
-                return "No directory or specified"
+                print("No Data directory was specified")
+                sys.exit(1)
 
         # Ofline path provided:
         elif raw_data_path:
-            # Head to Specified Directory
-            os.chdir(raw_data_path)
+            try:
+                # Head to Specified Directory
+                os.chdir(raw_data_path)
+            except FileNotFoundError:
+                print("Invalid Data directory path.")
+                sys.exit(1)
 
             # Collect all Files in directory
             raw_txt_files = glob.glob("*.txt")
             raw_csv_files = glob.glob("*.csv")
             raw_json_files = glob.glob("*.json")
 
-
+            if ((not txt_files) and (not csv_files) and (not json_files)):
+                print("No files were found in specified directory.")
+                sys.exit(1)
         # Process Data, Cleaning, Removing Stopwords, Lowering case.
 
         self.processsed = clean_data(raw_txt_files, raw_csv_files, raw_json_files)
@@ -109,7 +126,7 @@ class Classifier(ABC):
         #Extract Features:
         #       Creating Dictinary with each Feature as key,
         #       and it's boolean state of existance as value.
-        self.featuresets = [(extract_features(doc, word_features), c) for (doc, c) in features]
+        self.featuresets = [(extract_features(doc, word_features), category) for (doc, category) in features]
 
         #   Divide Features between Training and Testing sets.
         self.train_set, self.test_set = self.featuresets[len(self.featuresets)-train_set_no:], self.featuresets[:test_set_no]
@@ -154,6 +171,9 @@ class Classifier(ABC):
         :param dump_file_name: File name
         :return: data : the saved data
         """
+        if not isinstance(dump_file_name, str):
+            print("Invalid dump file name .")
+            sys.exit(1)
         # Head To Trained Data Path
         os.chdir(Trained_Data_Dir.__getattr__())
         try:
@@ -176,6 +196,9 @@ class Classifier(ABC):
         :param dump_file_name: File name
         :return: None
         """
+        if not isinstance(dump_file_name, str):
+            print("Invalid dump file name .")
+            sys.exit(1)
         # Head To Trained Data Path
         os.chdir(Trained_Data_Dir.__getattr__())
         # Save Data.
@@ -222,11 +245,7 @@ class Classifier(ABC):
         if algorithm in ["multinomial", "multinomial_nb", "mnb"]:
             from .multinomial_nb_algorithm import MultinomailNBAlgorithm
             return MultinomailNBAlgorithm()
-
-
-        #
-        # other algorithms to be added here
-        #
+            return PassiveAggressiveAlgorithm()
         assert 0, "Wrong input"+algorithm
     factory = staticmethod(factory)
     # end fuctory

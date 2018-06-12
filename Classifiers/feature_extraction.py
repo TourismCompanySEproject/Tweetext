@@ -1,9 +1,7 @@
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-import re
-import random
-import csv
+import re, sys, random, csv
 
 
 def process_word(word):
@@ -53,9 +51,13 @@ def clean_data(txt_files=None, csv_files=None,json_files=None):
         for file in txt_files:
             try:
                 file_text = open(file, encoding='utf8').read()
+            except FileNotFoundError:
+                print (file+" was not found.")
+                sys.exit(0)
             except UnicodeDecodeError:
-                print(file_text[0:20])
+                print(file+" causes unicode decode error.")
                 continue
+
 
             for word in file_text.split('\n'):
                 procesed_word = process_word(word)
@@ -78,10 +80,10 @@ def clean_data(txt_files=None, csv_files=None,json_files=None):
                 try:
                     count +=1
                     tweet = row[1]
-                    sentiment = row[0]
+                    label = row[0]
                     processed_tweet= process_word(tweet)
                     all_tweets.extend(processed_tweet)
-                    tweets.append((processed_tweet, sentiment))
+                    tweets.append((processed_tweet, label))
                 except(IndexError):
                     continue
             #end for row
@@ -109,6 +111,8 @@ def extract_features(document, word_features):
             '[mode]:False,
              [egypt]:True, '
     """
+    if len(document) == 0 :
+        return {}
     document_words = set(document)
     features_set = {}
     for word in word_features:

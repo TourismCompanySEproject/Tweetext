@@ -3,21 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <title>Classifier</title>
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            padding: 0px;
+            margin: 0px;
+            font-family: 'Source Sans Pro', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .bg-img:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-image: linear-gradient(to bottom right, #002f4b, #dc4225);
+            opacity: .6;
+        }
+
+        .bg-img {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+        /*{#            background: url('http://unsplash.it/1200x800') center center no-repeat;#} */
+        background: url('http://inbusiness.ae/wp-content/uploads/2017/07/machine-learning.jpg') center center no-repeat;
+
+        /*{#            background: url('https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/rN0W64K4ipau8gxv/data-mining-moving-abstract-squares-background_bifntk-ve_thumbnail-full01.png') center center no-repeat;#}*/
+        /*{#            background: url('http://unsplash.it/1200x800') center center no-repeat;#} background-size: cover;*/
+        }
+
+        .con {
+            height: 100%;
+            width: 100%;
+            text-align: center;
+            margin-top: 18%;
+        }
+
+        .bttn {
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            text-align: center;
+            width: 270px;
+            font-weight: bold;
+            padding: 14px 0px;
+        {#            border: 3px solid ;#} border-radius: 50%;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+
+        }
+
+        button {
+            text-align: center;
+            background-color: #1565C0;
+            opacity: .9;
+            color: #fff;
+            border: 1px #252525 outset;
+            cursor: pointer;
+            font-family: 'Consolas', 'Monaco', 'Bitstream Vera Sans Mono', monospace;
+        }
+
+        button:hover {
+            border: 3px #1A237E inset;
+            color: #1A237E;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+        }
+
+        button:focus {
+            border: 3px #1A237E inset;
+            color: #1A237E;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+            border-radius: 50%;
+        }
+
+        button:active {
+            border-radius: 50%;
+        }
+
+        input[type='text'] {
+            width: 40%;
+            clear: both;
+            box-sizing: border-box;
+            padding: 13px;
+            color: black;
+            margin: 5px auto;
+            border: 2px whitesmoke groove;
+            border-radius: 5px;
+            font-size: 17px;
+            z-index: 3;
+            position: relative;
+            font-family: "Monotype Corsiva", "Apple Chancery", "URW Chancery L", cursive;
+        }
+
+        .text-design {
+            font-family: "Helvetica Neue Light", HelveticaNeue-Light, "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            color: #ffffff;
+        }
+
+    </style>
+
 </head>
+
+
 <body>
-    {% if label %}
-    <h1>{{label}}</h1>
-    {% endif %}
+<div class="bg-img">
 
- <form method="POST" novalidate="">
+    <div class="con">
 
-     <p>
-         <label for="input">Input:</label>
-         <input style="background-color: #fff3cd" type="text" name="input" maxlength="30" id="input">
-     </p>
-     <br>
-     <button value="submit" type="submit"  style="color: whitesmoke; background-color:green; width:40%; margin: auto;" class="btn btn-primary btn-block">Classify</button>
- </form>
 
+        <form method="POST" novalidate="">
+            <p>
+                {#                <label for="input">Input:</label>#}
+                <input style="background-color: #fff3cd" type="text" name="input" maxlength="500" id="input"
+                       PLACEHOLDER="Type Your Text">
+            </p>
+            <br>
+            <button value="submit" type="submit" class="bttn">Classify</button>
+
+        </form>
+        {% if label %}
+            <div class="text-design"><h1>{{ label }}</h1></div>
+        {% endif %}
+    </div>
+</div>
 </body>
 </html>
