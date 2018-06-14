@@ -23,11 +23,11 @@ class Classifier(ABC):
         :return: Null
         """
         if not isinstance(raw_data_path, str):
-            print("Invalid path format was entered.")
-            sys.exit(1)
+            raise NotADirectoryError("Invalid path format was entered.")
+
         if (train_set_no or test_set_no) <= 2:
-            print("Invalid number of features for training and testing set.")
-            sys.exit(1)
+            raise ValueError("Invalid number of features for training and testing set.")
+
 
         # Processing raw data: Cleaning, Removing Stopwords, Lowering case.
         self.features, self.word_features = self.process_data(raw_data_path)
@@ -83,8 +83,7 @@ class Classifier(ABC):
 
         # Not present:
         if raw_data_path is None:
-                print("No Data directory was specified")
-                sys.exit(1)
+            raise NotADirectoryError("No Data directory was specified")
 
         # Ofline path provided:
         elif raw_data_path:
@@ -92,8 +91,7 @@ class Classifier(ABC):
                 # Head to Specified Directory
                 os.chdir(raw_data_path)
             except FileNotFoundError:
-                print("Invalid Data directory path.")
-                sys.exit(1)
+                raise FileNotFoundError("Invalid Data directory path.")
 
             # Collect all Files in directory
             raw_txt_files = glob.glob("*.txt")
@@ -101,8 +99,8 @@ class Classifier(ABC):
             raw_json_files = glob.glob("*.json")
 
             if ((not raw_txt_files) and (not raw_csv_files) and (not raw_json_files)):
-                print("No files were found in specified directory.")
-                sys.exit(1)
+                raise FileNotFoundError("No files were found in specified directory.")
+
         # Process Data, Cleaning, Removing Stopwords, Lowering case.
 
         self.processsed = clean_data(raw_txt_files, raw_csv_files, raw_json_files)
@@ -172,8 +170,8 @@ class Classifier(ABC):
         :return: data : the saved data
         """
         if not isinstance(dump_file_name, str):
-            print("Invalid dump file name .")
-            sys.exit(1)
+            raise NameError ("Invalid dump file name .")
+
         # Head To Trained Data Path
         os.chdir(Trained_Data_Dir.__getattr__())
         try:
@@ -197,8 +195,8 @@ class Classifier(ABC):
         :return: None
         """
         if not isinstance(dump_file_name, str):
-            print("Invalid dump file name .")
-            sys.exit(1)
+            raise NameError("Invalid dump file name .")
+
         # Head To Trained Data Path
         os.chdir(Trained_Data_Dir.__getattr__())
         # Save Data.

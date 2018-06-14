@@ -53,8 +53,8 @@ def clean_data(txt_files=None, csv_files=None,json_files=None):
                 # file_text = open(file, encoding='utf8').read()
                 file_text = open(file, encoding="iso-8859-1").read()
             except FileNotFoundError:
-                print(file+" was not found.")
-                sys.exit(0)
+                raise FileNotFoundError(file+" was not found.")
+
             except UnicodeDecodeError:
                 print("From clean_data() at feature_extraction:\n" +
                       file + " causes unicode decode error.")

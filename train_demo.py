@@ -4,6 +4,13 @@ from time import time
 # from Classifiers.nb_algorithm import NaiveBayesAlgorithm
 # from Classifiers.Directions import Raw_Data_Dir
 
+
+start = time()
+demo_nb = Tweetext("nb")
+demo_nb.train(train_set_no=8000)
+print('Elapsed time:', time() - start)
+
+
 start = time()
 demo_svm = Tweetext(algorithm="svm")
 demo_svm.train(train_set_no=8000)
@@ -18,11 +25,6 @@ demo_mnb = Tweetext(algorithm="mnb")
 demo_mnb.train(train_set_no=8000)
 print('Elapsed time:', time() - start)
 
-#
-# start = time()
-# demo_nb = Tweetext("nb")
-# demo_nb.train(train_set_no=8000)
-# print('Elapsed time:', time() - start)
 
 
 

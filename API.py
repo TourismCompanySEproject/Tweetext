@@ -16,9 +16,19 @@ def classify():
     elif request.method == 'POST':
         req_data = request.get_json()
         input = req_data['input']
+
+        # empty input
+        if len(input) <= 1:
+            return jsonify({"result" : "Invalid: empty string"})
+
+        # invalid input
+        if not isinstance(input, str):
+            return jsonify({"result": "Invalid: not string"})
+
         classifier = Tweetext()
         label = classifier.classify(input)
-        return jsonify({"label" : label})
+
+        return jsonify({"result": label})
 
 
 # class Classifier(Resource):
