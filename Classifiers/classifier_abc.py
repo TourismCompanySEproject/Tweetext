@@ -100,7 +100,7 @@ class Classifier(ABC):
             raw_csv_files = glob.glob("*.csv")
             raw_json_files = glob.glob("*.json")
 
-            if ((not txt_files) and (not csv_files) and (not json_files)):
+            if ((not raw_txt_files) and (not raw_csv_files) and (not raw_json_files)):
                 print("No files were found in specified directory.")
                 sys.exit(1)
         # Process Data, Cleaning, Removing Stopwords, Lowering case.
@@ -239,7 +239,7 @@ class Classifier(ABC):
         if algorithm in ["naivebayesalgorithm", "naivebayes", "nb"]:
             from .nb_algorithm import NaiveBayesAlgorithm
             return NaiveBayesAlgorithm()
-        if algorithm == "svm":
+        if algorithm in ["svm"]:
             from .svm_algorithm import SVMAlgorithm
             return SVMAlgorithm()
         if algorithm in ["multinomial", "multinomial_nb", "mnb"]:

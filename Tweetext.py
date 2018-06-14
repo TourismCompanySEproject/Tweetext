@@ -12,7 +12,7 @@ class Tweetext:
     """
         Tweetext: acts as the interface between the users and the system functionalities
     """
-    def __init__(self, algorithm = "NaiveBayes"):
+    def __init__(self, algorithm = "svm"):
         """
             Constructor, takes Algorithm type as parameter, and create it using the factory DP.
         :param algorithm(optional): The Classifier algorithm to be created.
