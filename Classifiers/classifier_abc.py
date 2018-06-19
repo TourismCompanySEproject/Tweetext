@@ -47,7 +47,7 @@ class Classifier(ABC):
         # and save the trained data into pickles.
         classifier = self.classify(self.train_set, self.classifierDumpFile)
 
-        print(self.get_accuracy())
+        return(self.get_accuracy())
     #end train
 
     def predict(self, input):
@@ -57,7 +57,7 @@ class Classifier(ABC):
         :return: Category (label)
         """
 
-        if not isinstance(input, str):
+        if (not isinstance(input, str)) or (len(input) <=2):
             return ("Invalid input.")
 
         # Head To Trained Data Directory
@@ -170,7 +170,9 @@ class Classifier(ABC):
         :return: data : the saved data
         """
         if not isinstance(dump_file_name, str):
-            raise NameError ("Invalid dump file name .")
+            raise NameError ("Invalid dump file name.")
+        if not dump_file_name.endswith("pickle"):
+            raise NameError("Invalid dump file format.")
 
         # Head To Trained Data Path
         os.chdir(Trained_Data_Dir.__getattr__())
@@ -180,8 +182,10 @@ class Classifier(ABC):
                 self.data = pickle.load(file)
                 file.close()
 
+        except FileNotFoundError:
+            raise FileNotFoundError("Can't find Dump file.")
         except IOError:
-            "Can't open Dump file."
+            raise IOError("Can't open Dump file.")
 
         return self.data
     # end get_dump_file
@@ -195,7 +199,9 @@ class Classifier(ABC):
         :return: None
         """
         if not isinstance(dump_file_name, str):
-            raise NameError("Invalid dump file name .")
+            raise NameError("Invalid dump file name.")
+        if not dump_file_name.endswith("pickle"):
+            raise NameError("Invalid dump file format.")
 
         # Head To Trained Data Path
         os.chdir(Trained_Data_Dir.__getattr__())
@@ -206,7 +212,7 @@ class Classifier(ABC):
 
             outfile.close()
         except IOError:
-            "Can't create Dump file."
+            raise IOError("Can't create Dump file "+ dump_file_name)
     # end dump_files
 
 
@@ -217,7 +223,11 @@ class Classifier(ABC):
                         False if trained data available
         """
         # Head To Trained Data Path
-        os.chdir(Trained_Data_Dir.__getattr__())
+        try:
+            os.chdir(Trained_Data_Dir.__getattr__())
+
+        except NotADirectoryError:
+            raise NotADirectoryError("Invalid Data directory path.")
 
         # Check if there are Trained data for the spicified algorithm saved.
         pickle_file = glob.glob(self.classifierDumpFile)

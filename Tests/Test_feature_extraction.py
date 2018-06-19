@@ -9,7 +9,7 @@ class Test_feature_extraction(unittest.TestCase):
     #       01  -One string that has all the mentioned stop words
     #       02  -Empty string
     #       03  -One word string
-    @unittest.skip
+
     def test_process_word_01 (self):
 
         #arrange
@@ -21,7 +21,7 @@ class Test_feature_extraction(unittest.TestCase):
         #assert
         self.assertCountEqual(expected,result)
 
-    @unittest.skip
+
     def test_process_word_02 (self):
 
         #arrange
@@ -33,7 +33,7 @@ class Test_feature_extraction(unittest.TestCase):
         #assert
         self.assertCountEqual(expected,result)
 
-    @unittest.skip
+
     def test_process_word_03 (self):
         #arrange
         word = "Hi"
@@ -50,7 +50,7 @@ class Test_feature_extraction(unittest.TestCase):
     #       02  - 1 invalid empty text file
     #       03  - 1 valid csv file (list of files and csv file) and empty feature extraction
     #NOTE : if file no file with mentioned name existing in directory .. exception is handling it
-    @unittest.skip
+
     def test_clean_data_01 (self):
         #arrange
         filetxt=["test_doc.txt"]
@@ -67,7 +67,7 @@ class Test_feature_extraction(unittest.TestCase):
         self.assertEqual(len(expected_features),len(features))
         self.assertCountEqual(set(expected_words),set(words))
 
-    @unittest.skip
+
     def test_clean_data_02(self):
         # arrange
         file = ["emptyText.txt"]
@@ -80,7 +80,7 @@ class Test_feature_extraction(unittest.TestCase):
         self.assertCountEqual(result1, expected1)
         self.assertCountEqual(result2, expected2)
 
-    @unittest.skip
+
     def test_clean_data_03 (self):
         # arrange
         filecsv=["test_doc.csv"]
@@ -103,7 +103,7 @@ class Test_feature_extraction(unittest.TestCase):
     #       01  - 2 valid inputs ( lists)
     #       02  - 1 valid inputs ( list) and empty document
     #       03  - 1 valid inputs ( list) and empty feature extraction
-    @unittest.skip
+
     def test_extract_features_01 (self):
         fe = feature_extraction
         expected = {'contains(health)':False ,'contains(vote)':True, 'contains(plan)':True,
@@ -121,7 +121,7 @@ class Test_feature_extraction(unittest.TestCase):
         # assert
         self.assertCountEqual(result, expected)
 
-    @unittest.skip
+
     def test_extract_features_02 (self):
         fe = feature_extraction
         # expected = {'contains(health)': False, 'contains(vote)': False, 'contains(plan)': False,
@@ -141,7 +141,7 @@ class Test_feature_extraction(unittest.TestCase):
         # assert
         self.assertCountEqual(result, expected)
 
-    @unittest.skip
+
     def test_extract_features_03 (self):
         fe = feature_extraction
         expected={}

@@ -33,9 +33,11 @@ class Tweetext:
         :return: None.
         """
 
-        self.__current_algorithm.train(
+
+        accuracy = self.__current_algorithm.train(
             raw_data_path,
             train_set_no, test_set_no,)
+        print(accuracy)
     #end train
 
 
